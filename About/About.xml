@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ModMetaData>
+    <name>Mouse Fixes</name>
+    <author>MrGrim</author>
+    <supportedVersions>
+        <li>1.6</li>
+    </supportedVersions>
+    <packageId>org.gr1m.mods.rimworld.MouseFixes</packageId>
+    <modVersion>2.0</modVersion>
+    <url>https://steamcommunity.com/sharedfiles/filedetails/?id=3641018567</url>
+    <description>Fixes several Unity mouse handling bugs resulting in lag and poor dragging behavior.</description>
+
+    <loadAfter>
+        <li>Ludeon.RimWorld</li>
+    </loadAfter>
+</ModMetaData>

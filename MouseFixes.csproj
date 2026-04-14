@@ -1,0 +1,77 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project Sdk="Microsoft.NET.Sdk">
+
+    <PropertyGroup>
+        <RootNamespace>MouseFixes</RootNamespace>
+        <TargetFramework>net472</TargetFramework>
+        <AppendTargetFrameworkToOutputPath>false</AppendTargetFrameworkToOutputPath>
+        <CopyLocalLockFileAssemblies>false</CopyLocalLockFileAssemblies>
+        <LangVersion>latest</LangVersion>
+        <PackageId>MouseFixes</PackageId>
+    </PropertyGroup>
+
+    <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+        <DebugSymbols>true</DebugSymbols>
+        <DebugType>portable</DebugType>
+        <Optimize>false</Optimize>
+        <OutputPath>Assemblies</OutputPath>
+        <DefineConstants>DEBUG;TRACE</DefineConstants>
+        <ErrorReport>prompt</ErrorReport>
+        <WarningLevel>4</WarningLevel>
+    </PropertyGroup>
+
+    <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+        <DebugSymbols>true</DebugSymbols>
+        <DebugType>portable</DebugType>
+        <Optimize>true</Optimize>
+        <OutputPath>Assemblies</OutputPath>
+        <DefineConstants>TRACE</DefineConstants>
+        <ErrorReport>prompt</ErrorReport>
+        <WarningLevel>4</WarningLevel>
+    </PropertyGroup>
+
+    <ItemGroup>
+        <Reference Include="Assembly-CSharp">
+            <HintPath>$(RIMWORLD_PATH)\RimWorldWin64_Data\Managed\Assembly-CSharp.dll</HintPath>
+            <HintPath>$(RIMWORLD_PATH)\RimWorldLinux_Data\Managed\Assembly-CSharp.dll</HintPath>
+            <Private>False</Private>
+        </Reference>
+        <Reference Include="UnityEngine">
+            <HintPath>$(RIMWORLD_PATH)\RimWorldWin64_Data\Managed\UnityEngine.dll</HintPath>
+            <HintPath>$(RIMWORLD_PATH)\RimWorldLinux_Data\Managed\UnityEngine.dll</HintPath>
+            <Private>False</Private>
+        </Reference>
+        <Reference Include="UnityEngine.CoreModule">
+            <HintPath>$(RIMWORLD_PATH)\RimWorldWin64_Data\Managed\UnityEngine.CoreModule.dll</HintPath>
+            <HintPath>$(RIMWORLD_PATH)\RimWorldLinux_Data\Managed\UnityEngine.CoreModule.dll</HintPath>
+            <Private>False</Private>
+        </Reference>
+        <Reference Include="UnityEngine.IMGUIModule">
+            <HintPath>$(RIMWORLD_PATH)\RimWorldWin64_Data\Managed\UnityEngine.IMGUIModule.dll</HintPath>
+            <HintPath>$(RIMWORLD_PATH)\RimWorldLinux_Data\Managed\UnityEngine.IMGUIModule.dll</HintPath>
+            <Private>False</Private>
+        </Reference>
+        <Reference Include="UnityEngine.IMGUIModule">
+            <HintPath>$(RIMWORLD_PATH)\RimWorldWin64_Data\Managed\UnityEngine.UI.dll</HintPath>
+            <HintPath>$(RIMWORLD_PATH)\RimWorldLinux_Data\Managed\UnityEngine.UI.dll</HintPath>
+            <Private>False</Private>
+        </Reference>
+        <Reference Include="UnityEngine.TextRenderingModule">
+            <HintPath>$(RIMWORLD_PATH)\RimWorldWin64_Data\Managed\UnityEngine.TextRenderingModule.dll</HintPath>
+            <HintPath>$(RIMWORLD_PATH)\RimWorldLinux_Data\Managed\UnityEngine.TextRenderingModule.dll</HintPath>
+            <Private>False</Private>
+        </Reference>
+        <PackageReference Include="Lib.Harmony.Thin" Version="2.3.6" ExcludeAssets="runtime" />
+    </ItemGroup>
+
+    <!-- The below condition will check if you've defined a reference called "Assembly-CSharp" and if that reference exists on disk.
+        If that reference does not exist, it will add Krafs Rimworld Ref to the project. If it does exist, Krafs won't be added
+        as a reference. This basically means that Krafs is treated as a fallback if Assembly-CSharp is not found -->
+    <ItemGroup Condition="'@(Reference->WithMetadataValue('Identity', 'Assembly-CSharp')->Metadata('HintPath')->Exists())' == ''">
+        <PackageReference Include="Krafs.Rimworld.Ref" Version="1.6.*"/>
+    </ItemGroup>
+
+    <Target Name="PostBuild" AfterTargets="PostBuildEvent" Condition="Exists('$(DEPLOY_SCRIPT)')">
+        <Exec Command="$(ProjectDir)\$(DEPLOY_SCRIPT) $(RIMWORLD_PATH)" WorkingDirectory="$(ProjectDir)"/>
+    </Target>
+</Project>
