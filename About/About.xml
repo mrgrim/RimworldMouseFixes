@@ -9,7 +9,16 @@
     <modVersion>2.0</modVersion>
     <url>https://steamcommunity.com/sharedfiles/filedetails/?id=3641018567</url>
     <description>Fixes several Unity mouse handling bugs resulting in lag and poor dragging behavior.</description>
-
+    <modDependencies>
+        <li>
+            <packageId>brrainz.harmony</packageId>
+            <displayName>Harmony</displayName>
+            <steamWorkshopUrl>steam://url/CommunityFilePage/2009463077</steamWorkshopUrl>
+        </li>
+    </modDependencies>
+    <incompatibleWith>
+        <li>almantuxas.mousedragfix</li>
+    </incompatibleWith>
     <loadAfter>
         <li>Ludeon.RimWorld</li>
     </loadAfter>
