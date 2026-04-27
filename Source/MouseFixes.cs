@@ -25,7 +25,7 @@ public class MouseFixes : Mod
     
     public MouseFixes(ModContentPack content) : base(content)
     {
-        Harmony.DEBUG = true;
+        // Harmony.DEBUG = true;
 
         // This is just a ploy to avoid reflection
         new ReversePatcher(harmony,
